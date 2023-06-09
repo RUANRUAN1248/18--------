@@ -1,0 +1,97 @@
+C251 COMPILER V5.60.0,  zf__DMA                                                            09/06/23  13:14:10  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE zf__DMA
+OBJECT MODULE PLACED IN .\Out_File\zf__DMA.obj
+COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf__DMA.c XSMALL WARNINGLEVEL(3) BR
+                    -OWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\
+                    -USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\zf__DMA.lst) TABS(2) OBJECT(.\Out_File\zf__DMA.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          bit DmaADCFlag=0;
+    3          uint8 xdata DmaAdBuffer[ADC_CH][ADC_DATA];
+    4          //========================================================================
+    5          // 函数: void DMA_ADC_Inilize(DMA_ADC_InitTypeDef *DMA)
+    6          // 描述: DMA ADC 初始化程序.
+    7          // 参数: DMA: 结构参数,请参考DMA.h里的定义.
+    8          // 返回: none.
+    9          // 版本: V1.0, 2021-05-17
+   10          //========================================================================
+   11          void DMA_ADC_Inilize(DMA_ADC_InitTypeDef *DMA)
+   12          {
+   13   1          DMA_ADC_STA = 0x00;             // 清除DMA状态寄存器
+   14   1          DMA_ADC_CHSW1 = (uint8)(DMA->DMA_Channel >> 8);    // 设置DMA通道高字节
+   15   1          DMA_ADC_CHSW0 = (uint8)(DMA->DMA_Channel);         // 设置DMA通道低字节
+   16   1          DMA_ADC_RXAH = (uint8)(DMA->DMA_Buffer >> 8);       // 设置DMA接收地址高字节
+   17   1          DMA_ADC_RXAL = (uint8)(DMA->DMA_Buffer);            // 设置DMA接收地址低字节
+   18   1          DMA_ADC_CFG2 = DMA->DMA_Times;                   // 设置DMA传输次数
+   19   1          if (DMA->DMA_Enable == ENABLE)
+   20   1                DMA_ADC_CR |= 0x80;     // 使能ADC DMA
+   21   1          else
+   22   1                DMA_ADC_CR &= ~0x80;    // 禁止ADC DMA
+   23   1      }
+   24          /******************** DMA 配置 ********************/
+   25          void  DMA_config(void)
+   26          {
+   27   1          DMA_ADC_InitTypeDef   DMA_ADC_InitStructure;    //结构定义
+   28   1      
+   29   1          DMA_ADC_InitStructure.DMA_Enable = ENABLE;      //DMA使能   ENABLE,DISABLE
+   30   1          DMA_ADC_InitStructure.DMA_Channel = 0x0f80;     //ADC通道使能寄存器, 1:使能, bit15~bit0 对应 ADC15~ADC0
+   31   1          DMA_ADC_InitStructure.DMA_Buffer = (uint16)DmaAdBuffer; //ADC转换数据存储地址
+   32   1          DMA_ADC_InitStructure.DMA_Times = ADC_4_Times;  //每个通道转换次数, ADC_1_Times,ADC_2_Times,ADC_4_Times,
+             -ADC_8_Times,ADC_16_Times,ADC_32_Times,ADC_64_Times,ADC_128_Times,ADC_256_Times
+   33   1          DMA_ADC_Inilize(&DMA_ADC_InitStructure);    //初始化
+   34   1          NVIC_DMA_ADC_Init(ENABLE,Priority_0,Priority_0);    //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0
+             -~Priority_3; 总线优先级(低到高) Priority_0~Priority_3
+   35   1          DMA_ADC_TRIG();   //触发启动转换
+   36   1      }
+   37          //========================================================================
+   38          // 函数: NVIC_DMA_ADC_Init
+   39          // 描述: DMA ADC嵌套向量中断控制器初始化. 
+   40          // 参数: State:    中断使能状态, ENABLE/DISABLE.
+   41          // 参数: Priority: 中断优先级, Priority_0,Priority_1,Priority_2,Priority_3.
+   42          // 参数: Bus_Priority: 数据总线访问优先级, Priority_0,Priority_1,Priority_2,Priority_3.
+   43          // 返回: 执行结果 SUCCESS/FAIL.
+   44          // 版本: V1.0, 2021-05-21
+   45          //========================================================================
+   46          uint8 NVIC_DMA_ADC_Init(uint8 State, uint8 Priority, uint8 Bus_Priority)
+   47          {
+   48   1        DMA_ADC_CFG &= ~0x0f;
+   49   1        if(Priority <= Priority_3) DMA_ADC_CFG |= Priority << 2;
+   50   1        if(Bus_Priority <= Priority_3) DMA_ADC_CFG |= Bus_Priority; //数据总线访问优先级
+   51   1        if(State == ENABLE)
+   52   1          DMA_ADC_CFG |= 0x80;    //bit7 1:Enable Interrupt
+   53   1        else
+   54   1          DMA_ADC_CFG &= ~0x80;   //bit7 0:Disable Interrupt
+   55   1        return SUCCESS;
+C251 COMPILER V5.60.0,  zf__DMA                                                            09/06/23  13:14:10  PAGE 2   
+
+   56   1      }
+   57          
+   58          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       238     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =        60     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------          6
+  bit size             =         1     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

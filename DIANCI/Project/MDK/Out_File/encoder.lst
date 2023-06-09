@@ -1,0 +1,150 @@
+C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
+OBJECT MODULE PLACED IN .\Out_File\encoder.obj
+COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\encoder.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libra
+                    -ries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..
+                    -\..\..\DIANCI) DEBUG PRINT(.\Out_File\encoder.lst) TABS(2) OBJECT(.\Out_File\encoder.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          
+    4          int16 templ_pluse = 0;
+    5          int16 tempr_pluse = 0;
+    6          /*¶ÔÓÚ CTIM0_P34£¬Ñ¡Ôñ¶¨Ê±Æ÷0ºÍÒý½ÅP3.4£¬²¢ÉèÖÃ¶¨Ê±Æ÷0µÄTL0ºÍTH0¼Ä´æÆ÷Îª0£¬½«TMOD¼Ä´æÆ÷µÄµÚ2Î»ÉèÖÃÎª1£¬±í
+             -Ê¾Ñ¡ÔñÍâ²¿¼ÆÊýÄ£Ê½£¬×îºóÆô¶¯¶¨Ê±Æ÷0¡£
+    7          
+    8          ¶ÔÓÚ CTIM1_P35£¬Ñ¡Ôñ¶¨Ê±Æ÷1ºÍÒý½ÅP3.5£¬²¢ÉèÖÃ¶¨Ê±Æ÷1µÄTL1ºÍTH1¼Ä´æÆ÷Îª0£¬½«TMOD¼Ä´æÆ÷µÄµÚ6Î»ÉèÖÃÎª1£¬±íÊ¾
+             -Ñ¡ÔñÍâ²¿¼ÆÊýÄ£Ê½£¬×îºóÆô¶¯¶¨Ê±Æ÷1¡£
+    9          
+   10          ¶ÔÓÚ CTIM2_P12£¬Ñ¡Ôñ¶¨Ê±Æ÷2ºÍÒý½ÅP1.2£¬²¢ÉèÖÃ¶¨Ê±Æ÷2µÄT2LºÍT2H¼Ä´æÆ÷Îª0£¬½«AUXR¼Ä´æÆ÷µÄµÚ3¡¢4Î»ÉèÖÃÎª1£¬±
+             -íÊ¾Ñ¡ÔñÍâ²¿¼ÆÊýÄ£Ê½£¬²¢Æô¶¯¶¨Ê±Æ÷2¡£
+   11          
+   12          ¶ÔÓÚ CTIM3_P04£¬Ñ¡Ôñ¶¨Ê±Æ÷3ºÍÒý½ÅP0.4£¬²¢ÉèÖÃ¶¨Ê±Æ÷3µÄT3LºÍT3H¼Ä´æÆ÷Îª0£¬½«T4T3M¼Ä´æÆ÷µÄµÚ2¡¢3Î»ÉèÖÃÎª1£¬
+             -±íÊ¾Ñ¡ÔñÍâ²¿¼ÆÊýÄ£Ê½£¬²¢Æô¶¯¶¨Ê±Æ÷3¡£
+   13          
+   14          ¶ÔÓÚ CTIM4_P06£¬Ñ¡Ôñ¶¨Ê±Æ÷4ºÍÒý½ÅP0.6£¬²¢ÉèÖÃ¶¨Ê±Æ÷4µÄT4LºÍT4H¼Ä´æÆ÷Îª0£¬½«T4T3M¼Ä´æÆ÷µÄµÚ6¡¢7Î»ÉèÖÃÎª1£¬
+             -±íÊ¾Ñ¡ÔñÍâ²¿¼ÆÊýÄ£Ê½£¬²¢Æô¶¯¶¨Ê±Æ÷4¡£
+   15          
+   16          ¸Ãº¯ÊýµÄÄ¿µÄÊÇ¸ù¾Ý´«ÈëµÄ²ÎÊýÑ¡ÔñºÏÊÊµÄ¶¨Ê±Æ÷ºÍÒý½Å£¬²¢½øÐÐ³õÊ¼»¯ºÍÆô¶¯²Ù×÷£¬ÒÔ±ãºóÐøÊ¹ÓÃÍâ²¿¼ÆÊý¹¦ÄÜ*/
+   17          //´ø·½Ïò±àÂëÆ÷¿ÉÒÔÖ±½ÓÓÃ¿âº¯Êý
+   18          //-------------------------------------------------------------------------------------------------------
+             -------------
+   19          //  @brief      ±àÂëÆ÷³õÊ¼»¯
+   20          //  @param       tim_n           Ñ¡ÔñÄ£¿é
+   21          //  @return     
+   22          //  Sample usage:            
+   23          //-------------------------------------------------------------------------------------------------------
+             -------------
+   24          
+   25          void encoder_Init(void)
+   26          {
+   27   1         ctimer_count_init(SPEEDL_PLUSE);//¶¨Ê±Æ÷³õÊ¼»¯×÷ÎªÍâ²¿¼ÆÊý,³õÊ¼»¯¶¨Ê±Æ÷0£¬Íâ²¿ÊäÈëÎªP3.4Òý½Å
+   28   1         ctimer_count_init(SPEEDR_PLUSE);//³õÊ¼»¯¶¨Ê±Æ÷3×÷ÎªÍâ²¿¼ÆÊý
+   29   1      
+   30   1      }
+   31          //-------------------------------------------------------------------------------------------------------
+             -------------
+   32          //  @brief      ±àÂëÆ÷¶ÁÊý¾Ý
+   33          //  @param      datl           Êý¾Ý
+   34          //  @return     uint16      ·µ»Ø¼ÆÊýÖµ
+   35          //  Sample usage:           num = ctimer_count_read(CTIM0_P34);     
+   36          //-------------------------------------------------------------------------------------------------------
+             -------------
+   37          
+   38          int16 Read_encoderL(void)
+   39          {
+   40   1          int16 datl;
+   41   1          if(DIL == 1)
+   42   1          {
+   43   2            datl = ctimer_count_read(SPEEDL_PLUSE);
+   44   2          }
+   45   1          else
+   46   1          {
+   47   2            datl = ctimer_count_read(SPEEDL_PLUSE) * -1;
+   48   2          }
+C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 2   
+
+   49   1           return datl; 
+   50   1      }
+   51          int16 Read_encoderR(void)
+   52          {
+   53   1         int16 datr;
+   54   1        if(DIR == 1)
+   55   1          {
+   56   2            datr = ctimer_count_read(SPEEDR_PLUSE );
+   57   2          }
+   58   1          else
+   59   1          {
+   60   2            datr = ctimer_count_read(SPEEDR_PLUSE ) * -1;
+   61   2          }
+   62   1           return datr; 
+   63   1      }
+   64          //-------------------------------------------------------------------------------------------------------
+             -------------
+   65          //  @brief      ±àÂëÆ÷Çå³ýÊý¾Ý
+   66          //  @param      datl           Êý¾Ý
+   67          //  @return     uint16      ·µ»Ø¼ÆÊýÖµ
+   68          //  Sample usage:           num = ctimer_count_read(CTIM0_P34);     
+   69          //-------------------------------------------------------------------------------------------------------
+             -------------
+   70          
+   71          void clean_encoder(void)
+   72          {
+   73   1        ctimer_count_clean(SPEEDL_PLUSE);
+   74   1        ctimer_count_clean(SPEEDR_PLUSE);
+   75   1      }
+   76          //-------------------------------------------------------------------------------------------------------
+             -------------
+   77          //  @brief      Ê¹ÓÃ±àÂëÆ÷
+   78          //  @param      datl           Êý¾Ý
+   79          //  @return     uint16      ·µ»Ø¼ÆÊýÖµ
+   80          //  Sample usage:           num = ctimer_count_read(CTIM0_P34);     
+   81          //-------------------------------------------------------------------------------------------------------
+             -------------
+   82          void Use_encoderL(void)
+   83          {
+   84   1         templ_pluse=0;
+   85   1         tempr_pluse=0;
+   86   1         encoder_Init();
+   87   1         delay_ms(200);//200ms¼ÆÊýÊ±¼ä£¬Ò²ÊÇÈÃÆäÍêÈ«³õÊ¼»¯£¬²»ÒªÉ¾³ý£¬²»È»»á²»ºÃÊ¹
+   88   1         templ_pluse = Read_encoderL();
+   89   1         tempr_pluse = Read_encoderR();
+   90   1         printf("templ_pluse = %d\r\n", templ_pluse);
+   91   1         
+   92   1         printf("tempr_pluse = %d\r\n", tempr_pluse);
+   93   1         
+   94   1         clean_encoder();
+   95   1      }
+   96          
+   97          
+   98          
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       171     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =         4     ------
+  bit size             =    ------     ------
+C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 3   
+
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        50     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
