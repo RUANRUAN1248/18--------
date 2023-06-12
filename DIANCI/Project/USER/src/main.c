@@ -30,9 +30,7 @@ void main()
 {
 	DisableGlobalIRQ();
 	board_init();			// 初始化寄存器,勿删除此句代码。
-<<<<<<< Updated upstream
 	
-=======
 	//电机初始化
 	//舵机初始化
 	//ADC 通道初始化
@@ -42,7 +40,6 @@ void main()
 	//编码器
 	//中断定时器
 	pwm_init(PWMA_CH4N_P17, 1700)
->>>>>>> Stashed changes
 	Use_adc_Init();
 	DMA_config();
 	OLED_Init();				//初始化OLED
