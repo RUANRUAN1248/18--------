@@ -39,7 +39,7 @@ void main()
 	//蜂鸣器
 	//编码器
 	//中断定时器
-	pwm_init(PWMA_CH4N_P17, 1700)
+	//pwm_init(PWMA_CH4N_P17, 1700)
 	Use_adc_Init();
 	DMA_config();
 	OLED_Init();				//初始化OLED
