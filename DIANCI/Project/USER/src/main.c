@@ -29,6 +29,7 @@
 void main()
 {
 	board_init();			// 初始化寄存器,勿删除此句代码。
+	
 	Use_adc_Init();
 	DMA_config();
 	EnableGlobalIRQ();
