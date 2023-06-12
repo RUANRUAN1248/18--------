@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "headfile.h": "c",
+        "board.h": "c"
+    }
+}
