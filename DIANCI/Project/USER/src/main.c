@@ -30,22 +30,7 @@ void main()
 {
 	DisableGlobalIRQ();
 	board_init();			// 初始化寄存器,勿删除此句代码。
-	
-	//电机初始化
-	//舵机初始化
-	//ADC 通道初始化
-	//陀螺仪
-	//oled初始化
-	//蜂鸣器
-	//编码器
-	//中断定时器
-	//pwm_init(PWMA_CH4N_P17, 1700)
-	Use_adc_Init();
-	DMA_config();
-	OLED_Init();				//初始化OLED
-	OLED_Clear();
-	OLED_DisPlay_On();			//初始化LED
-	
+	all_init();
  	EnableGlobalIRQ();
   while(1)
 	{ 

@@ -53,4 +53,5 @@
 #include "adc.h"
 #include "zf__DMA.h"
 #include "oled.h"
+#include "allinit.h"
 #endif

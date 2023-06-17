@@ -1,6 +1,15 @@
 {
     "files.associations": {
         "headfile.h": "c",
-        "board.h": "c"
+        "board.h": "c",
+        "zf_iic.h": "c",
+        "zf_uart.h": "c",
+        "stc32gxx.h": "c",
+        "common.h": "c",
+        "seekfree_mpu6050.h": "c",
+        "allinit.h": "c",
+        "seekfree_bluetooth_ch9141.h": "c",
+        "seekfree_absolute_encoder.h": "c",
+        "seekfree_tsl1401.h": "c"
     }
 }
