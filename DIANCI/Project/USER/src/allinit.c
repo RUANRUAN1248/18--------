@@ -30,6 +30,8 @@ void all_init()
 	ctimer_count_init(SPEEDR_PLUSE);
 	// 中断定时器
 	pit_timer_ms(TIM_1, 5);
-
+	//TOF初始化
+	dl1a_init();	
+	
 	DMA_config();
 }
