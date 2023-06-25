@@ -16,46 +16,44 @@
  * @Taobao   		https://seekfree.taobao.com/
  * @date       		2020-12-18
  ********************************************************************************************************************/
-
 #include "headfile.h"
-
-
 /*
  * 系统频率，可查看board.h中的 FOSC 宏定义修改。 // ????0??????
  * board.h文件中FOSC的值设置为0,则程序自动设置系统频率为33.1776MHZ
  * 在board_init中,已经将P54引脚设置为复位
  * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
  */
+
 void main()
 {
 	DisableGlobalIRQ();
-	board_init();			// 初始化寄存器,勿删除此句代码。
 	all_init();
- 	EnableGlobalIRQ();
-  while(1)
-	{ 
-			
-		 // 此处编写需要循环执行的代码
-		shuju_adc();
-		
-		 delay_ms(200);	//200ms输出一次采样结果，方便观察
-		OLED_Refresh();
-		
-  }
+	board_init(); // 初始化寄存器,勿删除此句代码。
+	pit_timer_ms(TIM_4, 300);
+	EnableGlobalIRQ();
+	while (1)
+	{
+		// 此处编写需要循环执行的代码
+		// shuju_adc();
+		// delay_ms(200); // 200ms输出一次采样结果，方便观察
+		// OLED_Refresh();
+		if(dl1a_finsh_flag)
+		{
+			printf("Range : %d.\r\n", dl1a_distance_mm);
+			dl1a_finsh_flag = 0;
+		}
+	}
 }
 
-   
-
-
-//Use_adc_Init();
+// Use_adc_Init();
 //	DMA_config();
-//	EnableGlobalIRQ();   
-//    while(1)
+//	EnableGlobalIRQ();
+//     while(1)
 //	{
 //		uint8 i,n;
 //		 // 此处编写需要循环执行的代码
 //		 delay_ms(200);	//200ms输出一次采样结果，方便观察
-//		
+//
 //		if(DmaADCFlag)  //判断ADC DMA采样是否完成
 //		{
 //			DmaADCFlag = 0; //清除完成标志
@@ -66,29 +64,20 @@ void main()
 //				{
 //					printf("%02d ",DmaAdBuffer[i][n]);	//第1组数据,...,第n组数据,AD通道,平均余数,平均值
 //				}
-//				
+//
 //				printf("\r\n"); //串口输出回车换行符
 //			}
 //			printf("\r\n");     //串口输出回车换行符
 //			DMA_ADC_TRIG();		//重新触发启动下一次转换
 //		}
-//		
-//    }
+//
+//     }
 
-
-
-   //   gpio_mode(INT0_P32,GPI_IMPEDANCE);
-	//   exit_init(INT0_P32,FALLING_EDGE);   //初始化P32 作为外部中断引脚
-  //	   motor_init();
-  //	   pwm_init(PWMB_CH3_P22 , 50,3390 );     //初始化PWMA  使用引脚P7.4  输出PWM频率50HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
-
-
-
-
-
-
-
-
-
-
-
+//   gpio_mode(INT0_P32,GPI_IMPEDANCE);
+//   exit_init(INT0_P32,FALLING_EDGE);   //初始化P32 作为外部中断引脚
+//	   motor_init();
+//	   pwm_init(PWMB_CH3_P22 , 50,3390 );     //初始化PWMA  使用引脚P7.4  输出PWM频率50HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
+void pit_handler()
+{
+	dl1a_get_distance();
+}

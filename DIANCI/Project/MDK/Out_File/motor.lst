@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  motor                                                              09/06/23  13:14:12  PAGE 1   
+C251 COMPILER V5.60.0,  motor                                                              25/06/23  16:38:34  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor
 OBJECT MODULE PLACED IN .\Out_File\motor.obj
-COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\motor.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Librari
-                    -es\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\.
-                    -.\..\DIANCI) DEBUG PRINT(.\Out_File\motor.lst) TABS(2) OBJECT(.\Out_File\motor.obj) 
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\USER\src\motor.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Li
+                    -braries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src
+                    -;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\motor.lst) OBJECT(.\Out_File\motor.obj) 
 
 stmt  level    source
 
@@ -23,31 +23,31 @@ stmt  level    source
    12           *************************************************************************/
    13          void motor_init(void)
    14          {
-   15   1          pwm_init(PWMA_CH1P_P10,15000,0);//P1 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
-   16   1          pwm_init(PWMB_CH2_P21,15000,0);//P2 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
-   17   1          pwm_init(PWMB_CH1_P20,15000,0);//P3 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
-   18   1          pwm_init(PWMB_CH4_P23,15000,0);//P4 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
+   15   1                      pwm_init(PWMA_CH1P_P10,15000,0);//P1 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
+   16   1                      pwm_init(PWMB_CH2_P21,15000,0);//P2 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
+   17   1                      pwm_init(PWMB_CH1_P20,15000,0);//P3 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
+   18   1                      pwm_init(PWMB_CH4_P23,15000,0);//P4 输出PWM频率17000HZ   占空比为百分之 pwm_duty / PWM_DUTY_MAX * 100
    19   1      }
    20          void qian(void)           //P1-pwm  P2-0 P3-pwm P4-0时前转
    21          {
    22   1          pwm_duty(PWMA_CH1P_P10,5000);   //占空比10%
-   23   1          pwm_duty(PWMB_CH2_P21,0);    //占空比0%
-   24   1          pwm_duty(PWMB_CH1_P20,5000);    //占空比10%
-   25   1          pwm_duty(PWMB_CH4_P23,0);     //占空比0%
-   26   1      } 
+   23   1                pwm_duty(PWMB_CH2_P21,0);    //占空比0%
+   24   1                pwm_duty(PWMB_CH1_P20,5000);    //占空比10%
+   25   1                      pwm_duty(PWMB_CH4_P23,0);     //占空比0%
+   26   1      }       
    27          void hou(void)           //P1-0  P2-pwm P3-0 P4-pwm时后转
    28          {
    29   1          pwm_duty(PWMA_CH3P_P14,0);   //占空比0%
-   30   1          pwm_duty(PWMA_CH4P_P16,50);    //占空比10%
-   31   1          pwm_duty(PWMB_CH1_P20,0);    //占空比0%
-   32   1          pwm_duty(PWMB_CH4_P23,50);     //占空比10%
+   30   1                pwm_duty(PWMA_CH4P_P16,50);    //占空比10%
+   31   1                pwm_duty(PWMB_CH1_P20,0);    //占空比0%
+   32   1                      pwm_duty(PWMB_CH4_P23,50);     //占空比10%
    33   1      }
    34          void ting(void)         //P1=P2 P3=P4或者P1.P2.P3.P4悬空时前转
    35          {
    36   1          pwm_duty(PWMA_CH3P_P14,0);   //占空比0%
-   37   1          pwm_duty(PWMA_CH4P_P16,0);    //占空比0%
-   38   1          pwm_duty(PWMB_CH1_P20,0);    //占空比0%
-   39   1          pwm_duty(PWMB_CH4_P23,0);     //占空比0%
+   37   1                pwm_duty(PWMA_CH4P_P16,0);    //占空比0%
+   38   1                pwm_duty(PWMB_CH1_P20,0);    //占空比0%
+   39   1                      pwm_duty(PWMB_CH4_P23,0);     //占空比0%
    40   1      }
    41          
    42          
@@ -67,7 +67,7 @@ Module Information          Static   Overlayable
   edata size           =    ------     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
-C251 COMPILER V5.60.0,  motor                                                              09/06/23  13:14:12  PAGE 2   
+C251 COMPILER V5.60.0,  motor                                                              25/06/23  16:38:34  PAGE 2   
 
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------

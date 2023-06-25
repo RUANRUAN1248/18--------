@@ -2,7 +2,7 @@
 
 void all_init()
 {
-
+	uart_init();
 	// 电机初始化
 	pwm_init(PWMA_CH1P_P60, 17000, 0);
 	pwm_init(PWMA_CH2P_P62, 17000, 0);
@@ -32,6 +32,6 @@ void all_init()
 	pit_timer_ms(TIM_1, 5);
 	//TOF初始化
 	dl1a_init();	
-	
+
 	DMA_config();
 }

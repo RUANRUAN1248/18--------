@@ -29,14 +29,15 @@
 ".\Out_File\SEEKFREE_WIRELESS.obj",
 ".\Out_File\SEEKFREE_WIRELESS_CH573.obj",
 ".\Out_File\SEEKFREE_IPS114_SPI.obj",
+".\Out_File\adc.obj",
+".\Out_File\allinit.obj",
+".\Out_File\encoder.obj",
 ".\Out_File\isr.obj",
 ".\Out_File\main.obj",
 ".\Out_File\motor.obj",
-".\Out_File\PWM.obj",
+".\Out_File\oled.obj",
 ".\Out_File\PID.obj",
-".\Out_File\encoder.obj",
-".\Out_File\adc.obj",
-".\Out_File\oled.obj" 
+".\Out_File\PWM.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (16,57) 
 REMOVEUNUSED 

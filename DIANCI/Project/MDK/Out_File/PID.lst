@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  PID                                                                09/06/23  13:14:12  PAGE 1   
+C251 COMPILER V5.60.0,  PID                                                                25/06/23  16:38:35  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE PID
 OBJECT MODULE PLACED IN .\Out_File\PID.obj
-COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\PID.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libraries
-                    -\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\
-                    -..\DIANCI) DEBUG PRINT(.\Out_File\PID.lst) TABS(2) OBJECT(.\Out_File\PID.obj) 
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\USER\src\PID.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libr
+                    -aries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;.
+                    -.\..\..\DIANCI) DEBUG PRINT(.\Out_File\PID.lst) OBJECT(.\Out_File\PID.obj) 
 
 stmt  level    source
 
@@ -24,7 +24,7 @@ stmt  level    source
    13           *************************************************************************/
    14          float constrain_float(float amt, float low, float high)
    15          {
-   16   1        return ((amt)<(low)?(low):((amt)>(high)?(high):(amt)));
+   16   1              return ((amt)<(low)?(low):((amt)>(high)?(high):(amt)));
    17   1      }
    18          /************************************************
    19          函数名称：PIDL_Init(PIDL_Type_Def *PIDL)
@@ -35,17 +35,17 @@ stmt  level    source
    24          void PIDL_Init(PIDL_Type_Def *PIDL)
    25          {
    26   1           PIDL->Kp =0;
-   27   1           PIDL->Ki =0;
-   28   1           PIDL->Kd =0;
-   29   1           PIDL->out_p =0; //Kp输出
-   30   1           PIDL->out_i =0; //Ki输出
-   31   1           PIDL->out_d =0; //Kd输出
-   32   1           PIDL->out =0;   //pid输出
-   33   1           PIDL->integrator =0; //积分值
-   34   1           PIDL->limit =0;//积分限幅
-   35   1           PIDL->error =0;      //当前偏差
-   36   1           PIDL->last_error =0; //上次误差
-   37   1           PIDL->last_derivative =0; //上次误差与上上次误差之差
+   27   1                 PIDL->Ki =0;
+   28   1                 PIDL->Kd =0;
+   29   1                 PIDL->out_p =0; //Kp输出
+   30   1                 PIDL->out_i =0; //Ki输出
+   31   1                       PIDL->out_d =0; //Kd输出
+   32   1                       PIDL->out =0;   //pid输出
+   33   1                       PIDL->integrator =0; //积分值
+   34   1                 PIDL->limit =0;//积分限幅
+   35   1                 PIDL->error =0;      //当前偏差
+   36   1                       PIDL->last_error =0; //上次误差
+   37   1                       PIDL->last_derivative =0; //上次误差与上上次误差之差
    38   1      }
    39          /************************************************
    40          函数名称：PIDR_Init(PIDR_Type_Def *PIDR)
@@ -56,19 +56,19 @@ stmt  level    source
    45          void PIDR_Init(PIDR_Type_Def *PIDR)
    46          {
    47   1           PIDR->Kp =0;
-   48   1           PIDR->Ki =0;
-   49   1           PIDR->Kd =0;
-   50   1           PIDR->out_p =0; //Kp输出
-   51   1           PIDR->out_i =0; //Ki输出
-   52   1           PIDR->out_d =0; //Kd输出
-   53   1           PIDR->out =0;   //pid输出
-   54   1           PIDR->integrator =0; //积分值
-   55   1           PIDR->limit =0;//积分限幅
-   56   1           PIDR->error =0;      //当前偏差
-   57   1           PIDR->last_error =0; //上次误差
-C251 COMPILER V5.60.0,  PID                                                                09/06/23  13:14:12  PAGE 2   
+   48   1                 PIDR->Ki =0;
+   49   1                 PIDR->Kd =0;
+   50   1                       PIDR->out_p =0; //Kp输出
+   51   1                 PIDR->out_i =0; //Ki输出
+   52   1                       PIDR->out_d =0; //Kd输出
+   53   1                       PIDR->out =0;   //pid输出
+   54   1                       PIDR->integrator =0; //积分值
+   55   1                 PIDR->limit =0;//积分限幅
+   56   1                 PIDR->error =0;      //当前偏差
+   57   1                       PIDR->last_error =0; //上次误差
+C251 COMPILER V5.60.0,  PID                                                                25/06/23  16:38:35  PAGE 2   
 
-   58   1           PIDR->last_derivative =0; //上次误差与上上次误差之差
+   58   1                       PIDR->last_derivative =0; //上次误差与上上次误差之差
    59   1      }
    60          
    61          //pwm=Kp*e(k)+Ki*∑e(k)+Kd[e（k）-e(k-1)]
@@ -82,17 +82,17 @@ stmt  level    source
    69          *************************************************/
    70          float PIDL_Loc(float SetValue,float ActualValue,PIDL_Type_Def *PIDL)
    71          {
-   72   1              PIDL->error = SetValue - ActualValue;                                           //现在误差
-   73   1              PIDL->integrator += PIDL->error;                                                //误差累积       
-   74   1              PIDL->integrator = PIDL->integrator > PIDL->limit?PIDL->limit:PIDL->integrator; //积分限幅
-   75   1              PIDL->last_derivative = PIDL->error - PIDL->last_error;
-   76   1              PIDL->out_p = PIDL->Kp *  PIDL->error;                                          //Kp输出
-   77   1              PIDL->out_i = PIDL->Ki *  PIDL->integrator;                                     //Ki输出
-   78   1              PIDL->out_d = PIDL->Kd *  PIDL->last_derivative;                                //Kd输出
-   79   1              PIDL->last_error = PIDL->error;                                                 //保存上一次偏差
-   80   1              PIDL->out =PIDL->out_p + PIDL->out_i + PIDL->out_d;                             //输出
-   81   1        //限制
-   82   1              if(PIDL->out > Servo_max)
+   72   1                    PIDL->error = SetValue - ActualValue;                                           //现在误差
+   73   1                    PIDL->integrator += PIDL->error;                                                //误差累积             
+   74   1                    PIDL->integrator = PIDL->integrator > PIDL->limit?PIDL->limit:PIDL->integrator; //积分限幅
+   75   1                    PIDL->last_derivative = PIDL->error - PIDL->last_error;
+   76   1                                      PIDL->out_p = PIDL->Kp *  PIDL->error;                                          //Kp输出
+   77   1                    PIDL->out_i = PIDL->Ki *  PIDL->integrator;                                     //Ki输出
+   78   1                    PIDL->out_d = PIDL->Kd *  PIDL->last_derivative;                                //Kd输出
+   79   1                    PIDL->last_error = PIDL->error;                                                 //保存上一次偏差
+   80   1                    PIDL->out =PIDL->out_p + PIDL->out_i + PIDL->out_d;                             //输出
+   81   1              //限制
+   82   1                    if(PIDL->out > Servo_max)
    83   1          {
    84   2            PIDL->out =  Servo_max;
    85   2          }
@@ -100,23 +100,23 @@ stmt  level    source
    87   1          {
    88   2            PIDL->out =  Servo_min;
    89   2          }
-   90   1             return PIDL->out ; 
-   91   1        
-   92   1        
+   90   1                   return PIDL->out ; 
+   91   1              
+   92   1              
    93   1      }
    94          float PIDR_Loc(float SetValue,float ActualValue,PIDR_Type_Def *PIDR)
    95          {
-   96   1              PIDR->error = SetValue - ActualValue;                                           //现在误差
-   97   1              PIDR->integrator += PIDR->error;                                                //误差累积       
-   98   1              PIDR->integrator = PIDR->integrator > PIDR->limit?PIDR->limit:PIDR->integrator; //积分限幅
-   99   1              PIDR->last_derivative = PIDR->error - PIDR->last_error;
-  100   1              PIDR->out_p = PIDR->Kp *  PIDR->error;                                          //Kp输出
-  101   1              PIDR->out_i = PIDR->Ki *  PIDR->integrator;                                     //Ki输出
-  102   1              PIDR->out_d = PIDR->Kd *  PIDR->last_derivative;                                //Kd输出
-  103   1              PIDR->last_error = PIDR->error;                                                 //保存上一次偏差
-  104   1              PIDR->out =PIDR->out_p + PIDR->out_i + PIDR->out_d;                             //输出
-  105   1        //限制
-  106   1              if(PIDR->out > Servo_max)
+   96   1                    PIDR->error = SetValue - ActualValue;                                           //现在误差
+   97   1                    PIDR->integrator += PIDR->error;                                                //误差累积             
+   98   1                    PIDR->integrator = PIDR->integrator > PIDR->limit?PIDR->limit:PIDR->integrator; //积分限幅
+   99   1                    PIDR->last_derivative = PIDR->error - PIDR->last_error;
+  100   1                                      PIDR->out_p = PIDR->Kp *  PIDR->error;                                          //Kp输出
+  101   1                    PIDR->out_i = PIDR->Ki *  PIDR->integrator;                                     //Ki输出
+  102   1                    PIDR->out_d = PIDR->Kd *  PIDR->last_derivative;                                //Kd输出
+  103   1                    PIDR->last_error = PIDR->error;                                                 //保存上一次偏差
+  104   1                    PIDR->out =PIDR->out_p + PIDR->out_i + PIDR->out_d;                             //输出
+  105   1              //限制
+  106   1                    if(PIDR->out > Servo_max)
   107   1          {
   108   2            PIDR->out =  Servo_max;
   109   2          }
@@ -124,9 +124,9 @@ stmt  level    source
   111   1          {
   112   2            PIDR->out =  Servo_min;
   113   2          }
-  114   1             return PIDR->out ; 
-  115   1        
-  116   1        
+  114   1                   return PIDR->out ; 
+  115   1              
+  116   1              
   117   1      }
   118          //pwm+=Kp[e（k）-e(k-1)]+Ki*e(k)+Kd[e(k)-2e(k-1)+e(k-2)]
   119          /************************************************
@@ -134,7 +134,7 @@ stmt  level    source
   121          功    能 ： 增量式PID
   122          参    数 ： SetValue ------ 设置值(期望值)
   123                      ActualValue --- 实际值(反馈值)
-C251 COMPILER V5.60.0,  PID                                                                09/06/23  13:14:12  PAGE 3   
+C251 COMPILER V5.60.0,  PID                                                                25/06/23  16:38:35  PAGE 3   
 
   124                      PID ----------- PID数据结构
   125          返 回 值 ： PIDL->out -------- 本次PID增量(+/-)
@@ -144,12 +144,12 @@ stmt  level    source
   129   1          
   130   1       
   131   1          PIDL->error = SetValue - ActualValue;                                  //计算当前偏差  
-  132   1          PIDL->last_derivative = PIDL->error - PIDL->last_error;
+  132   1                PIDL->last_derivative = PIDL->error - PIDL->last_error;
   133   1          PIDL->out_p = PIDL->Kp * PIDL->last_derivative;
   134   1          PIDL->out_i = PIDL->Ki * PIDL->error;
-  135   1          PIDL->out_d = PIDL->Kd * (PIDL->error - 2*PIDL->last_error +  PIDL->last_last_error); 
+  135   1          PIDL->out_d = PIDL->Kd * (PIDL->error - 2*PIDL->last_error +  PIDL->last_last_error);       
   136   1          PIDL->out = PIDL->out_p + PIDL->out_i + PIDL->out_d;                    //增量式PID控制器    
-  137   1        
+  137   1              
   138   1          PIDL->last_last_error = PIDL->last_error;
   139   1          PIDL->last_error =PIDL->error;
   140   1      
@@ -170,12 +170,12 @@ stmt  level    source
   155   1          
   156   1       
   157   1          PIDR->error = SetValue - ActualValue;                                  //计算当前偏差  
-  158   1          PIDR->last_derivative = PIDR->error - PIDR->last_error;
+  158   1                PIDR->last_derivative = PIDR->error - PIDR->last_error;
   159   1          PIDR->out_p = PIDR->Kp * PIDR->last_derivative;
   160   1          PIDR->out_i = PIDR->Ki * PIDR->error;
-  161   1          PIDR->out_d = PIDR->Kd * (PIDR->error - 2*PIDR->last_error +  PIDR->last_last_error); 
+  161   1          PIDR->out_d = PIDR->Kd * (PIDR->error - 2*PIDR->last_error +  PIDR->last_last_error);       
   162   1          PIDR->out = PIDR->out_p + PIDR->out_i + PIDR->out_d;                    //增量式PID控制器    
-  163   1        
+  163   1              
   164   1          PIDR->last_last_error = PIDR->last_error;
   165   1          PIDR->last_error =PIDR->error;
   166   1      
@@ -202,7 +202,7 @@ stmt  level    source
   187          
   188          
   189          
-C251 COMPILER V5.60.0,  PID                                                                09/06/23  13:14:12  PAGE 4   
+C251 COMPILER V5.60.0,  PID                                                                25/06/23  16:38:35  PAGE 4   
 
   190          
 

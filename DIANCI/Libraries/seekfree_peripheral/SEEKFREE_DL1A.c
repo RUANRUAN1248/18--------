@@ -807,9 +807,7 @@ uint8 dl1a_init (void)
 	
     memset(ref_spad_map, 0, 6);
     memset(data_buffer, 0, 7);
-
-
-
+    
     do
     {
         delay_ms(100);

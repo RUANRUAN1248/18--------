@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 1   
+C251 COMPILER V5.60.0,  encoder                                                            25/06/23  16:38:35  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
 OBJECT MODULE PLACED IN .\Out_File\encoder.obj
-COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\encoder.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\Libra
-                    -ries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..
-                    -\..\..\DIANCI) DEBUG PRINT(.\Out_File\encoder.lst) TABS(2) OBJECT(.\Out_File\encoder.obj) 
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\USER\src\encoder.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\
+                    -Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\s
+                    -rc;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\encoder.lst) OBJECT(.\Out_File\encoder.obj) 
 
 stmt  level    source
 
@@ -43,7 +43,7 @@ stmt  level    source
    25          void encoder_Init(void)
    26          {
    27   1         ctimer_count_init(SPEEDL_PLUSE);//定时器初始化作为外部计数,初始化定时器0，外部输入为P3.4引脚
-   28   1         ctimer_count_init(SPEEDR_PLUSE);//初始化定时器3作为外部计数
+   28   1               ctimer_count_init(SPEEDR_PLUSE);//初始化定时器3作为外部计数
    29   1      
    30   1      }
    31          //-------------------------------------------------------------------------------------------------------
@@ -57,30 +57,30 @@ stmt  level    source
    37          
    38          int16 Read_encoderL(void)
    39          {
-   40   1          int16 datl;
-   41   1          if(DIL == 1)
-   42   1          {
-   43   2            datl = ctimer_count_read(SPEEDL_PLUSE);
-   44   2          }
-   45   1          else
-   46   1          {
-   47   2            datl = ctimer_count_read(SPEEDL_PLUSE) * -1;
-   48   2          }
-C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 2   
+   40   1                int16 datl;
+   41   1                if(DIL == 1)
+   42   1                      {
+   43   2                              datl = ctimer_count_read(SPEEDL_PLUSE);
+   44   2                      }
+   45   1                      else
+   46   1                      {
+   47   2                              datl = ctimer_count_read(SPEEDL_PLUSE) * -1;
+   48   2                      }
+C251 COMPILER V5.60.0,  encoder                                                            25/06/23  16:38:35  PAGE 2   
 
    49   1           return datl; 
    50   1      }
    51          int16 Read_encoderR(void)
    52          {
-   53   1         int16 datr;
-   54   1        if(DIR == 1)
-   55   1          {
-   56   2            datr = ctimer_count_read(SPEEDR_PLUSE );
-   57   2          }
-   58   1          else
-   59   1          {
-   60   2            datr = ctimer_count_read(SPEEDR_PLUSE ) * -1;
-   61   2          }
+   53   1               int16 datr;
+   54   1              if(DIR == 1)
+   55   1                      {
+   56   2                              datr = ctimer_count_read(SPEEDR_PLUSE );
+   57   2                      }
+   58   1                      else
+   59   1                      {
+   60   2                              datr = ctimer_count_read(SPEEDR_PLUSE ) * -1;
+   61   2                      }
    62   1           return datr; 
    63   1      }
    64          //-------------------------------------------------------------------------------------------------------
@@ -107,17 +107,17 @@ stmt  level    source
              -------------
    82          void Use_encoderL(void)
    83          {
-   84   1         templ_pluse=0;
-   85   1         tempr_pluse=0;
+   84   1               templ_pluse=0;
+   85   1               tempr_pluse=0;
    86   1         encoder_Init();
-   87   1         delay_ms(200);//200ms计数时间，也是让其完全初始化，不要删除，不然会不好使
+   87   1               delay_ms(200);//200ms计数时间，也是让其完全初始化，不要删除，不然会不好使
    88   1         templ_pluse = Read_encoderL();
-   89   1         tempr_pluse = Read_encoderR();
-   90   1         printf("templ_pluse = %d\r\n", templ_pluse);
-   91   1         
-   92   1         printf("tempr_pluse = %d\r\n", tempr_pluse);
-   93   1         
-   94   1         clean_encoder();
+   89   1               tempr_pluse = Read_encoderR();
+   90   1               printf("templ_pluse = %d\r\n", templ_pluse);
+   91   1               
+   92   1               printf("tempr_pluse = %d\r\n", tempr_pluse);
+   93   1               
+   94   1               clean_encoder();
    95   1      }
    96          
    97          
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   xdata-const size     =    ------     ------
   edata size           =         4     ------
   bit size             =    ------     ------
-C251 COMPILER V5.60.0,  encoder                                                            09/06/23  13:14:13  PAGE 3   
+C251 COMPILER V5.60.0,  encoder                                                            25/06/23  16:38:35  PAGE 3   
 
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------

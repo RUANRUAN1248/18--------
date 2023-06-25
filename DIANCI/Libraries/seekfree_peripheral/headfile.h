@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "intrins.h"
+
 //------STC32G SDK等
 #include "STC32Gxx.h"
 #include "board.h"
@@ -34,6 +35,7 @@
 #include "SEEKFREE_TSL1401.h"
 #include "SEEKFREE_IPS114_SPI.h"
 #include "SEEKFREE_MPU6050.h"
+
 //#include "SEEKFREE_OLED.h"
 #include "SEEKFREE_ABSOLUTE_ENCODER.h"
 #include "SEEKFREE_WIRELESS.h"
@@ -45,6 +47,7 @@
 #include "SEEKFREE_IMU660RA.h"
 #include "SEEKFREE_IMU963RA.h"
 #include "SEEKFREE_DL1A.h"
+
 //自己编写代码的头文件
 #include "PWM.h"
 #include "motor.h"
@@ -54,4 +57,5 @@
 #include "zf__DMA.h"
 #include "oled.h"
 #include "allinit.h"
+
 #endif

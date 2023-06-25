@@ -667,18 +667,23 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>doc</GroupName>
+          <GroupName>user</GroupName>
           <Files>
             <File>
-              <FileName>version.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Libraries\doc\version.txt</FilePath>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\src\adc.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>user_c</GroupName>
-          <Files>
+            <File>
+              <FileName>allinit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\src\allinit.c</FilePath>
+            </File>
+            <File>
+              <FileName>encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\src\encoder.c</FilePath>
+            </File>
             <File>
               <FileName>isr.c</FileName>
               <FileType>1</FileType>
@@ -695,9 +700,9 @@
               <FilePath>..\USER\src\motor.c</FilePath>
             </File>
             <File>
-              <FileName>PWM.c</FileName>
+              <FileName>oled.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\src\PWM.c</FilePath>
+              <FilePath>..\USER\src\oled.c</FilePath>
             </File>
             <File>
               <FileName>PID.c</FileName>
@@ -705,34 +710,9 @@
               <FilePath>..\USER\src\PID.c</FilePath>
             </File>
             <File>
-              <FileName>encoder.c</FileName>
+              <FileName>PWM.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\src\encoder.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\src\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\USER\inc\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\src\oled.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>user_h</GroupName>
-          <Files>
-            <File>
-              <FileName>isr.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\USER\inc\isr.h</FilePath>
+              <FilePath>..\USER\src\PWM.c</FilePath>
             </File>
           </Files>
         </Group>

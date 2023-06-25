@@ -1,1 +1,1 @@
-"..\USER\src\PWM.c" XSMALL WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\PWM.lst) TABS (2) OBJECT(.\Out_File\PWM.obj)
+"..\USER\src\PWM.c" XSMALL WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\PWM.lst) OBJECT(.\Out_File\PWM.obj)

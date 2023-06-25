@@ -1,11 +1,11 @@
-C251 COMPILER V5.60.0,  zf__DMA                                                            09/06/23  13:14:10  PAGE 1   
+C251 COMPILER V5.60.0,  zf__DMA                                                            25/06/23  16:46:47  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf__DMA
 OBJECT MODULE PLACED IN .\Out_File\zf__DMA.obj
-COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf__DMA.c XSMALL WARNINGLEVEL(3) BR
-                    -OWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\
-                    -USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\zf__DMA.lst) TABS(2) OBJECT(.\Out_File\zf__DMA.obj) 
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf__DMA.c XSMALL WARNINGLEVEL(
+                    -3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\COD
+                    -E;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\zf__DMA.lst) OBJECT(.\Out_File\zf__DMA.obj) 
 
 stmt  level    source
 
@@ -22,30 +22,30 @@ stmt  level    source
    11          void DMA_ADC_Inilize(DMA_ADC_InitTypeDef *DMA)
    12          {
    13   1          DMA_ADC_STA = 0x00;             // 清除DMA状态寄存器
-   14   1          DMA_ADC_CHSW1 = (uint8)(DMA->DMA_Channel >> 8);    // 设置DMA通道高字节
-   15   1          DMA_ADC_CHSW0 = (uint8)(DMA->DMA_Channel);         // 设置DMA通道低字节
-   16   1          DMA_ADC_RXAH = (uint8)(DMA->DMA_Buffer >> 8);       // 设置DMA接收地址高字节
-   17   1          DMA_ADC_RXAL = (uint8)(DMA->DMA_Buffer);            // 设置DMA接收地址低字节
-   18   1          DMA_ADC_CFG2 = DMA->DMA_Times;                   // 设置DMA传输次数
+   14   1                      DMA_ADC_CHSW1 = (uint8)(DMA->DMA_Channel >> 8);    // 设置DMA通道高字节
+   15   1                      DMA_ADC_CHSW0 = (uint8)(DMA->DMA_Channel);         // 设置DMA通道低字节
+   16   1                      DMA_ADC_RXAH = (uint8)(DMA->DMA_Buffer >> 8);       // 设置DMA接收地址高字节
+   17   1                      DMA_ADC_RXAL = (uint8)(DMA->DMA_Buffer);            // 设置DMA接收地址低字节
+   18   1                      DMA_ADC_CFG2 = DMA->DMA_Times;                   // 设置DMA传输次数
    19   1          if (DMA->DMA_Enable == ENABLE)
-   20   1                DMA_ADC_CR |= 0x80;     // 使能ADC DMA
-   21   1          else
-   22   1                DMA_ADC_CR &= ~0x80;    // 禁止ADC DMA
+   20   1                                              DMA_ADC_CR |= 0x80;     // 使能ADC DMA
+   21   1                      else
+   22   1                                  DMA_ADC_CR &= ~0x80;    // 禁止ADC DMA
    23   1      }
    24          /******************** DMA 配置 ********************/
-   25          void  DMA_config(void)
+   25          void    DMA_config(void)
    26          {
-   27   1          DMA_ADC_InitTypeDef   DMA_ADC_InitStructure;    //结构定义
+   27   1                      DMA_ADC_InitTypeDef             DMA_ADC_InitStructure;          //结构定义
    28   1      
-   29   1          DMA_ADC_InitStructure.DMA_Enable = ENABLE;      //DMA使能   ENABLE,DISABLE
-   30   1          DMA_ADC_InitStructure.DMA_Channel = 0x0f80;     //ADC通道使能寄存器, 1:使能, bit15~bit0 对应 ADC15~ADC0
-   31   1          DMA_ADC_InitStructure.DMA_Buffer = (uint16)DmaAdBuffer; //ADC转换数据存储地址
-   32   1          DMA_ADC_InitStructure.DMA_Times = ADC_4_Times;  //每个通道转换次数, ADC_1_Times,ADC_2_Times,ADC_4_Times,
+   29   1                      DMA_ADC_InitStructure.DMA_Enable = ENABLE;                      //DMA使能       ENABLE,DISABLE
+   30   1                      DMA_ADC_InitStructure.DMA_Channel = 0x0f80;                     //ADC通道使能寄存器, 1:使能, bit15~bit0 对应 ADC15~ADC0
+   31   1                      DMA_ADC_InitStructure.DMA_Buffer = (uint16)DmaAdBuffer; //ADC转换数据存储地址
+   32   1                      DMA_ADC_InitStructure.DMA_Times = ADC_4_Times;  //每个通道转换次数, ADC_1_Times,ADC_2_Times,ADC_4_Times,
              -ADC_8_Times,ADC_16_Times,ADC_32_Times,ADC_64_Times,ADC_128_Times,ADC_256_Times
-   33   1          DMA_ADC_Inilize(&DMA_ADC_InitStructure);    //初始化
-   34   1          NVIC_DMA_ADC_Init(ENABLE,Priority_0,Priority_0);    //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0
+   33   1                      DMA_ADC_Inilize(&DMA_ADC_InitStructure);                //初始化
+   34   1                      NVIC_DMA_ADC_Init(ENABLE,Priority_0,Priority_0);                //中断使能, ENABLE/DISABLE; 优先级(低到高) Priority_0
              -~Priority_3; 总线优先级(低到高) Priority_0~Priority_3
-   35   1          DMA_ADC_TRIG();   //触发启动转换
+   35   1                      DMA_ADC_TRIG();         //触发启动转换
    36   1      }
    37          //========================================================================
    38          // 函数: NVIC_DMA_ADC_Init
@@ -58,15 +58,15 @@ stmt  level    source
    45          //========================================================================
    46          uint8 NVIC_DMA_ADC_Init(uint8 State, uint8 Priority, uint8 Bus_Priority)
    47          {
-   48   1        DMA_ADC_CFG &= ~0x0f;
-   49   1        if(Priority <= Priority_3) DMA_ADC_CFG |= Priority << 2;
-   50   1        if(Bus_Priority <= Priority_3) DMA_ADC_CFG |= Bus_Priority; //数据总线访问优先级
-   51   1        if(State == ENABLE)
-   52   1          DMA_ADC_CFG |= 0x80;    //bit7 1:Enable Interrupt
-   53   1        else
-   54   1          DMA_ADC_CFG &= ~0x80;   //bit7 0:Disable Interrupt
-   55   1        return SUCCESS;
-C251 COMPILER V5.60.0,  zf__DMA                                                            09/06/23  13:14:10  PAGE 2   
+   48   1              DMA_ADC_CFG &= ~0x0f;
+   49   1              if(Priority <= Priority_3) DMA_ADC_CFG |= Priority << 2;
+   50   1              if(Bus_Priority <= Priority_3) DMA_ADC_CFG |= Bus_Priority;     //数据总线访问优先级
+   51   1              if(State == ENABLE)
+   52   1                      DMA_ADC_CFG |= 0x80;            //bit7 1:Enable Interrupt
+   53   1              else
+   54   1                      DMA_ADC_CFG &= ~0x80;           //bit7 0:Disable Interrupt
+   55   1              return SUCCESS;
+C251 COMPILER V5.60.0,  zf__DMA                                                            25/06/23  16:46:47  PAGE 2   
 
    56   1      }
    57          

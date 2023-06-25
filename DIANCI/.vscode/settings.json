@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "headfile.h": "c",
+        "allinit.h": "c",
+        "seekfree_imu660ra.h": "c",
+        "seekfree_dl1a.h": "c"
+    }
+}

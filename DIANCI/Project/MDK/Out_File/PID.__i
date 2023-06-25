@@ -1,1 +1,1 @@
-"..\USER\src\PID.c" XSMALL WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\PID.lst) TABS (2) OBJECT(.\Out_File\PID.obj)
+"..\USER\src\PID.c" XSMALL WARNINGLEVEL (3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\PID.lst) OBJECT(.\Out_File\PID.obj)

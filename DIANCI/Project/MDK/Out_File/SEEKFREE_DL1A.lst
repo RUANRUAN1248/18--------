@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_DL1A
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_DL1A.obj
-COMPILER INVOKED BY: D:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1A.c XSMALL WARNINGLEVE
-                    -L(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\C
-                    -ODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\SEEKFREE_DL1A.lst) TABS(2) OBJECT(.\Out_File\SEEKFRE
-                    -E_DL1A.obj) 
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1A.c XSMALL WARNIN
+                    -GLEVEL(3) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral
+                    -;..\CODE;..\USER\inc;..\USER\src;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\SEEKFREE_DL1A.lst) OBJECT(.\Out_File\SEEKFREE_D
+                    -L1A.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    46          
    47          #include "zf_delay.h"
    48          #include "SEEKFREE_DL1A.h"
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 2   
 
    49          
    50          
@@ -78,12 +78,12 @@ stmt  level    source
    56          
    57          
    58          
-   59          #define GET_DL1A_SDA        DL1A_SDA_PIN
-   60          #define DL1A_SDA_LOW()          DL1A_SDA_PIN = 0    //IO口输出低电平
-   61          #define DL1A_SDA_HIGH()         DL1A_SDA_PIN = 1    //IO口输出高电平
+   59          #define GET_DL1A_SDA                    DL1A_SDA_PIN
+   60          #define DL1A_SDA_LOW()          DL1A_SDA_PIN = 0                //IO口输出低电平
+   61          #define DL1A_SDA_HIGH()         DL1A_SDA_PIN = 1                //IO口输出高电平
    62          
-   63          #define DL1A_SCL_LOW()            DL1A_SCL_PIN = 0    //IO口输出低电平
-   64          #define DL1A_SCL_HIGH()           DL1A_SCL_PIN = 1    //IO口输出高电平
+   63          #define DL1A_SCL_LOW()                  DL1A_SCL_PIN = 0                //IO口输出低电平
+   64          #define DL1A_SCL_HIGH()                 DL1A_SCL_PIN = 1                //IO口输出高电平
    65          
    66          #define ack 1      //主应答
    67          #define no_ack 0   //从应答  
@@ -91,38 +91,38 @@ stmt  level    source
    69          //-------------------------------------------------------------------------------------------------------
              -------------
    70          //  @brief      模拟IIC延时
-   71          //  @return     void            
+   71          //  @return     void                                            
    72          //  @since      v1.0
-   73          //  Sample usage:       如果IIC通讯失败可以尝试增加j的值
+   73          //  Sample usage:                               如果IIC通讯失败可以尝试增加j的值
    74          //-------------------------------------------------------------------------------------------------------
              -------------
    75          static void dl1a_simiic_delay(void)
    76          {
    77   1          uint16 j=DL1A_SOFT_IIC_DELAY;   
-   78   1        while(j--);
+   78   1              while(j--);
    79   1      }
    80          
    81          //内部使用，用户无需调用
    82          static void dl1a_simiic_start(void)
    83          {
-   84   1        DL1A_SDA_HIGH();
-   85   1        DL1A_SCL_HIGH();
-   86   1        dl1a_simiic_delay();
-   87   1        DL1A_SDA_LOW();
-   88   1        dl1a_simiic_delay();
-   89   1        DL1A_SCL_LOW();
+   84   1              DL1A_SDA_HIGH();
+   85   1              DL1A_SCL_HIGH();
+   86   1              dl1a_simiic_delay();
+   87   1              DL1A_SDA_LOW();
+   88   1              dl1a_simiic_delay();
+   89   1              DL1A_SCL_LOW();
    90   1      }
    91          
    92          //内部使用，用户无需调用
    93          static void dl1a_simiic_stop(void)
    94          {
-   95   1        DL1A_SDA_LOW();
-   96   1        DL1A_SCL_LOW();
-   97   1        dl1a_simiic_delay();
-   98   1        DL1A_SCL_HIGH();
-   99   1        dl1a_simiic_delay();
-  100   1        DL1A_SDA_HIGH();
-  101   1        dl1a_simiic_delay();
+   95   1              DL1A_SDA_LOW();
+   96   1              DL1A_SCL_LOW();
+   97   1              dl1a_simiic_delay();
+   98   1              DL1A_SCL_HIGH();
+   99   1              dl1a_simiic_delay();
+  100   1              DL1A_SDA_HIGH();
+  101   1              dl1a_simiic_delay();
   102   1      }
   103          
   104          //主应答(包含ack:SDA=0和no_ack:SDA=0)
@@ -130,11 +130,11 @@ stmt  level    source
   106          static void dl1a_simiic_sendack(unsigned char ack_dat)
   107          {
   108   1          DL1A_SCL_LOW();
-  109   1        dl1a_simiic_delay();
-  110   1        if(ack_dat) DL1A_SDA_LOW();
-  111   1          else      DL1A_SDA_HIGH();
+  109   1              dl1a_simiic_delay();
+  110   1              if(ack_dat) DL1A_SDA_LOW();
+  111   1          else        DL1A_SDA_HIGH();
   112   1      
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 3   
 
   113   1          DL1A_SCL_HIGH();
   114   1          dl1a_simiic_delay();
@@ -147,11 +147,11 @@ stmt  level    source
   121          {
   122   1          DL1A_SCL_LOW();
   123   1      
-  124   1        dl1a_simiic_delay();
-  125   1        
-  126   1        DL1A_SCL_HIGH();
+  124   1              dl1a_simiic_delay();
+  125   1              
+  126   1              DL1A_SCL_HIGH();
   127   1          dl1a_simiic_delay();
-  128   1        
+  128   1              
   129   1          if(GET_DL1A_SDA)           //应答为高电平，异常，通信失败
   130   1          {
   131   2      
@@ -160,7 +160,7 @@ stmt  level    source
   134   2          }
   135   1      
   136   1          DL1A_SCL_LOW();
-  137   1        dl1a_simiic_delay();
+  137   1              dl1a_simiic_delay();
   138   1          return 1;
   139   1      }
   140          
@@ -170,18 +170,18 @@ stmt  level    source
   144          //内部使用，用户无需调用
   145          static void dl1a_send_ch(uint8 c)
   146          {
-  147   1        uint8 i = 8;
+  147   1              uint8 i = 8;
   148   1          while(i--)
   149   1          {
-  150   2              if(c & 0x80)  DL1A_SDA_HIGH();//SDA 输出数据
-  151   2              else      DL1A_SDA_LOW();
+  150   2              if(c & 0x80)    DL1A_SDA_HIGH();//SDA 输出数据
+  151   2              else                    DL1A_SDA_LOW();
   152   2              c <<= 1;
   153   2              dl1a_simiic_delay();
   154   2              DL1A_SCL_HIGH();                //SCL 拉高，采集信号
   155   2              dl1a_simiic_delay();
   156   2              DL1A_SCL_LOW();                //SCL 时钟线拉低
   157   2          }
-  158   1        dl1a_sccb_waitack();
+  158   1              dl1a_sccb_waitack();
   159   1      }
   160          
   161          
@@ -202,7 +202,7 @@ stmt  level    source
   176   2              dl1a_simiic_delay();
   177   2              DL1A_SCL_LOW();         //置时钟线为低，准备接收数据位
   178   2              dl1a_simiic_delay();
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 4   
 
   179   2              DL1A_SCL_HIGH();         //置时钟线为高，使数据线上数据有效
   180   2              dl1a_simiic_delay();
@@ -213,10 +213,10 @@ stmt  level    source
   185   3              }
   186   2          }
   187   1      
-  188   1        DL1A_SCL_LOW();
-  189   1        dl1a_simiic_delay();
-  190   1        dl1a_simiic_sendack(ack_x);
-  191   1        
+  188   1              DL1A_SCL_LOW();
+  189   1              dl1a_simiic_delay();
+  190   1              dl1a_simiic_sendack(ack_x);
+  191   1              
   192   1          return c;
   193   1      }
   194          
@@ -224,139 +224,139 @@ stmt  level    source
   196          //-------------------------------------------------------------------------------------------------------
              -------------
   197          //  @brief      模拟IIC写数据到设备寄存器函数
-  198          //  @param      dev_add     设备地址(低七位地址)
-  199          //  @param      reg       寄存器地址
-  200          //  @param      dat       写入的数据
-  201          //  @return     void            
+  198          //  @param      dev_add                 设备地址(低七位地址)
+  199          //  @param      reg                             寄存器地址
+  200          //  @param      dat                             写入的数据
+  201          //  @return     void                                            
   202          //  @since      v1.0
-  203          //  Sample usage:       
+  203          //  Sample usage:                               
   204          //-------------------------------------------------------------------------------------------------------
              -------------
   205          static void dl1a_simiic_write_dats(uint8 dev_add, uint8 *dat, uint32 len)
   206          {
-  207   1        dl1a_simiic_start();
+  207   1              dl1a_simiic_start();
   208   1          dl1a_send_ch( (dev_add<<1) | 0x00);   //发送器件地址加写位
-  209   1        while(len--)
-  210   1        {
-  211   2          dl1a_send_ch( *dat++ );            //发送需要写入的数据
-  212   2        }
+  209   1              while(len--)
+  210   1              {
+  211   2                      dl1a_send_ch( *dat++ );                                  //发送需要写入的数据
+  212   2              }
   213   1      
-  214   1        
-  215   1        dl1a_simiic_stop();
+  214   1              
+  215   1              dl1a_simiic_stop();
   216   1      }
   217          
   218          
   219          //-------------------------------------------------------------------------------------------------------
              -------------
   220          //  @brief      模拟IIC写数据到设备寄存器函数
-  221          //  @param      dev_add     设备地址(低七位地址)
-  222          //  @param      reg       寄存器地址
-  223          //  @param      dat       写入的数据
-  224          //  @return     void            
+  221          //  @param      dev_add                 设备地址(低七位地址)
+  222          //  @param      reg                             寄存器地址
+  223          //  @param      dat                             写入的数据
+  224          //  @return     void                                            
   225          //  @since      v1.0
-  226          //  Sample usage:       
+  226          //  Sample usage:                               
   227          //-------------------------------------------------------------------------------------------------------
              -------------
   228          static void dl1a_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
   229          {
-  230   1        dl1a_simiic_start();
+  230   1              dl1a_simiic_start();
   231   1          dl1a_send_ch( (dev_add<<1) | 0x00);   //发送器件地址加写位
-  232   1        dl1a_send_ch( reg );           //发送从机寄存器地址
-  233   1        dl1a_send_ch( dat );           //发送需要写入的数据
-  234   1        dl1a_simiic_stop();
+  232   1              dl1a_send_ch( reg );                             //发送从机寄存器地址
+  233   1              dl1a_send_ch( dat );                             //发送需要写入的数据
+  234   1              dl1a_simiic_stop();
   235   1      }
   236          
   237          //-------------------------------------------------------------------------------------------------------
              -------------
   238          //  @brief      模拟IIC从设备寄存器读取数据
-  239          //  @param      dev_add     设备地址(低七位地址)
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 5   
+  239          //  @param      dev_add                 设备地址(低七位地址)
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 5   
 
-  240          //  @param      reg       寄存器地址
-  241          //  @param      type      选择通信方式是IIC  还是 SCCB
-  242          //  @return     uint8     返回寄存器的数据      
+  240          //  @param      reg                             寄存器地址
+  241          //  @param      type                    选择通信方式是IIC  还是 SCCB
+  242          //  @return     uint8                   返回寄存器的数据                        
   243          //  @since      v1.0
-  244          //  Sample usage:       
+  244          //  Sample usage:                               
   245          //-------------------------------------------------------------------------------------------------------
              -------------
   246          static uint8 dl1a_simiic_read_reg(uint8 dev_add, uint8 reg)
   247          {
-  248   1        uint8 dat;
-  249   1        dl1a_simiic_start();
+  248   1              uint8 dat;
+  249   1              dl1a_simiic_start();
   250   1          dl1a_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-  251   1        dl1a_send_ch( reg );          //发送从机寄存器地址
+  251   1              dl1a_send_ch( reg );                            //发送从机寄存器地址
   252   1      
-  253   1        
-  254   1        dl1a_simiic_start();
-  255   1        dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
-  256   1        dat = dl1a_read_ch(no_ack);           //读取数据
-  257   1        dl1a_simiic_stop();
-  258   1        
-  259   1        return dat;
+  253   1              
+  254   1              dl1a_simiic_start();
+  255   1              dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+  256   1              dat = dl1a_read_ch(no_ack);                             //读取数据
+  257   1              dl1a_simiic_stop();
+  258   1              
+  259   1              return dat;
   260   1      }
   261          
   262          //-------------------------------------------------------------------------------------------------------
              -------------
   263          //  @brief      模拟IIC读取多字节数据
-  264          //  @param      dev_add     设备地址(低七位地址)
-  265          //  @param      reg       寄存器地址
-  266          //  @param      dat_add     数据保存的地址指针
-  267          //  @param      num       读取字节数量
-  268          //  @param      type      选择通信方式是IIC  还是 SCCB
-  269          //  @return     uint8     返回寄存器的数据      
+  264          //  @param      dev_add                 设备地址(低七位地址)
+  265          //  @param      reg                             寄存器地址
+  266          //  @param      dat_add                 数据保存的地址指针
+  267          //  @param      num                             读取字节数量
+  268          //  @param      type                    选择通信方式是IIC  还是 SCCB
+  269          //  @return     uint8                   返回寄存器的数据                        
   270          //  @since      v1.0
-  271          //  Sample usage:       
+  271          //  Sample usage:                               
   272          //-------------------------------------------------------------------------------------------------------
              -------------
   273          static void dl1a_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
   274          {
-  275   1        dl1a_simiic_start();
+  275   1              dl1a_simiic_start();
   276   1          dl1a_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-  277   1        dl1a_send_ch( reg );          //发送从机寄存器地址
+  277   1              dl1a_send_ch( reg );                            //发送从机寄存器地址
   278   1      
-  279   1        
-  280   1        dl1a_simiic_start();
-  281   1        dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+  279   1              
+  280   1              dl1a_simiic_start();
+  281   1              dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
   282   1          while(--num)
   283   1          {
   284   2              *dat_add = dl1a_read_ch(ack); //读取数据
   285   2              dat_add++;
   286   2          }
   287   1          *dat_add = dl1a_read_ch(no_ack); //读取数据
-  288   1        dl1a_simiic_stop();
+  288   1              dl1a_simiic_stop();
   289   1      }
   290          
   291          //-------------------------------------------------------------------------------------------------------
              -------------
   292          //  @brief      模拟IIC读取多字节数据
-  293          //  @param      dev_add     设备地址(低七位地址)
-  294          //  @param      reg       寄存器地址
-  295          //  @param      dat_add     数据保存的地址指针
-  296          //  @param      num       读取字节数量
-  297          //  @param      type      选择通信方式是IIC  还是 SCCB
-  298          //  @return     uint8     返回寄存器的数据      
+  293          //  @param      dev_add                 设备地址(低七位地址)
+  294          //  @param      reg                             寄存器地址
+  295          //  @param      dat_add                 数据保存的地址指针
+  296          //  @param      num                             读取字节数量
+  297          //  @param      type                    选择通信方式是IIC  还是 SCCB
+  298          //  @return     uint8                   返回寄存器的数据                        
   299          //  @since      v1.0
-  300          //  Sample usage:       
+  300          //  Sample usage:                               
   301          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 6   
 
              -------------
   302          static void dl1a_simiic_read_regs_1(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
   303          {
-  304   1        dl1a_simiic_start();
+  304   1              dl1a_simiic_start();
   305   1          dl1a_send_ch( (dev_add<<1) | 0x00);  //发送器件地址加写位
-  306   1        dl1a_send_ch( reg );          //发送从机寄存器地址
+  306   1              dl1a_send_ch( reg );                            //发送从机寄存器地址
   307   1      
-  308   1        
-  309   1        dl1a_simiic_start();
-  310   1        dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
+  308   1              
+  309   1              dl1a_simiic_start();
+  310   1              dl1a_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
   311   1          while(--num)
   312   1          {
   313   2              *dat_add = dl1a_read_ch(ack); //读取数据
   314   2              dat_add++;
   315   2          }
   316   1          *dat_add = dl1a_read_ch(no_ack); //读取数据
-  317   1        dl1a_simiic_stop();
+  317   1              dl1a_simiic_stop();
   318   1      }
   319          
   320          
@@ -406,7 +406,7 @@ stmt  level    source
   359   2              dl1a_write_register(0xFF, 0x01);
   360   2              dl1a_write_register(0x00, 0x00);
   361   2      
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 7   
 
   362   2              dl1a_write_register(0xFF, 0x06);
   363   2              dl1a_read_registers(0x83, &tmp, 1);
@@ -430,7 +430,7 @@ stmt  level    source
   381   4                      break;
   382   4                  }
   383   3              }
-  384   2          
+  384   2                      
   385   2              if(return_state)
   386   2              {
   387   3                  break;
@@ -474,7 +474,7 @@ stmt  level    source
   422   1      }
   423          
   424          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 8   
 
              -------------
   425          // 函数简介     将超时数值从 ms 转换到对应的 MCLKs
@@ -542,7 +542,7 @@ stmt  level    source
              -------------
   481          // 函数简介     获取序列步骤使能设置
   482          // 参数说明     enables         序列使能步骤结构体
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 9   
 
   483          // 返回参数     void
   484          // 使用示例     dl1a_get_sequence_step_enables(enables);
@@ -610,7 +610,7 @@ stmt  level    source
   540   1      
   541   1          dl1a_read_registers(DL1A_MSRC_CONFIG_TIMEOUT_MACROP, reg_buffer, 1);
   542   1          timeouts->msrc_dss_tcc_mclks = reg_buffer[0] + 1;
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 10  
 
   543   1          timeouts->msrc_dss_tcc_us = dl1a_timeout_mclks_to_microseconds(timeouts->msrc_dss_tcc_mclks, (uint8)t
              -imeouts->pre_range_vcsel_period_pclks);
@@ -678,7 +678,7 @@ stmt  level    source
   600   1          return return_state;
   601   1      }
   602          
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 11  
 
   603          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -698,10 +698,10 @@ stmt  level    source
   616   1          uint8 return_state = 0;
   617   1          uint8 data_buffer[3];
   618   1          uint16 dat = 0;
-  619   1        uint32 used_budget_us;
-  620   1        uint32 final_range_timeout_us;
-  621   1        uint16 final_range_timeout_mclks;
-  622   1        
+  619   1              uint32 used_budget_us;
+  620   1              uint32 final_range_timeout_us;
+  621   1              uint16 final_range_timeout_mclks;
+  622   1              
   623   1          dl1a_sequence_enables_step_struct enables;
   624   1          dl1a_sequence_timeout_step_struct timeouts;
   625   1      
@@ -746,7 +746,7 @@ stmt  level    source
   664   3                  {
   665   4                      // 请求的超时太大
   666   4                      return_state = 1;
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 12  
 
   667   4                      break;
   668   4                  }
@@ -814,7 +814,7 @@ stmt  level    source
   728   2          }
   729   1      
   730   1          if (enables.final_range)
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 13  
 
   731   1          {
   732   2              budget_us += (timeouts.final_range_us + DL1A_FINALlRANGE_OVERHEAD);
@@ -839,7 +839,7 @@ stmt  level    source
              -------------
   749          static void dl1a_set_signal_rate_limit (float limit_mcps)
   750          {
-  751   1        uint8 data_buffer[3];
+  751   1              uint8 data_buffer[3];
   752   1          uint16 limit_mcps_16bit = (limit_mcps * (1 << 7));
   753   1          //zf_assert(limit_mcps >= 0 || limit_mcps <= 511.99);
   754   1      
@@ -882,7 +882,7 @@ stmt  level    source
   789   1      }
   790          
   791          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 14  
 
              -------------
   792          // 函数简介     初始化 DL1A
@@ -900,225 +900,223 @@ stmt  level    source
   803   1          uint8 reg_data_buffer = 0;
   804   1          uint8 ref_spad_map[6];
   805   1          uint8 data_buffer[7];
-  806   1        uint8 i = 0;
-  807   1        
+  806   1              uint8 i = 0;
+  807   1              
   808   1          memset(ref_spad_map, 0, 6);
   809   1          memset(data_buffer, 0, 7);
-  810   1      
-  811   1      
-  812   1      
-  813   1          do
-  814   1          {
-  815   2              delay_ms(100);
-  816   2              DL1A_XSHUT_PIN = 0;
-  817   2              delay_ms(50);
-  818   2              DL1A_XSHUT_PIN = 1;
-  819   2              delay_ms(100);
-  820   2      
-  821   2              // -------------------------------- DL1A 启动初始化 --------------------------------
-  822   2              reg_data_buffer = dl1a_read_register(DL1A_IO_VOLTAGE_CONFIG);         // 传感器默认 IO 为 1
+  810   1          
+  811   1          do
+  812   1          {
+  813   2              delay_ms(100);
+  814   2              DL1A_XSHUT_PIN = 0;
+  815   2              delay_ms(50);
+  816   2              DL1A_XSHUT_PIN = 1;
+  817   2              delay_ms(100);
+  818   2      
+  819   2              // -------------------------------- DL1A 启动初始化 --------------------------------
+  820   2              reg_data_buffer = dl1a_read_register(DL1A_IO_VOLTAGE_CONFIG);         // 传感器默认 IO 为 1
              -.8V 模式
-  823   2              dl1a_write_register(DL1A_IO_VOLTAGE_CONFIG, reg_data_buffer | 0x01);  // 配置 IO 为 2.8V 模�
+  821   2              dl1a_write_register(DL1A_IO_VOLTAGE_CONFIG, reg_data_buffer | 0x01);  // 配置 IO 为 2.8V 模�
              -�
-  824   2      
-  825   2              dl1a_write_register(0x88, 0x00);                                         // 设置为标准 IIC �
+  822   2      
+  823   2              dl1a_write_register(0x88, 0x00);                                         // 设置为标准 IIC �
              -��式
-  826   2      
-  827   2              dl1a_write_register(0x80, 0x01);
-  828   2              dl1a_write_register(0xFF, 0x01);
-  829   2              dl1a_write_register(0x00, 0x00);
+  824   2      
+  825   2              dl1a_write_register(0x80, 0x01);
+  826   2              dl1a_write_register(0xFF, 0x01);
+  827   2              dl1a_write_register(0x00, 0x00);
+  828   2      
+  829   2              dl1a_read_registers(0x91, &stop_variable , 1);
   830   2      
-  831   2              dl1a_read_registers(0x91, &stop_variable , 1);
-  832   2      
-  833   2              dl1a_write_register(0x00, 0x01);
-  834   2              dl1a_write_register(0xFF, 0x00);
-  835   2              dl1a_write_register(0x80, 0x00);
-  836   2      
-  837   2              // 禁用 SIGNAL_RATE_MSRC(bit1) 和 SIGNAL_RATE_PRE_RANGE(bit4) 限制检查
-  838   2              reg_data_buffer = dl1a_read_register(DL1A_MSRC_CONFIG);
-  839   2              dl1a_write_register(DL1A_MSRC_CONFIG, reg_data_buffer | 0x12);
-  840   2      
-  841   2              dl1a_set_signal_rate_limit(DL1A_DEFAULT_RATE_LIMIT);                  // 设置信号速率限制
-  842   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xFF);
-  843   2              // -------------------------------- DL1A 启动初始化 --------------------------------
-  844   2      
-  845   2              // -------------------------------- DL1A 配置初始化 --------------------------------
-  846   2              if (dl1a_get_spad_info(&data_buffer[0], &data_buffer[1]))
-  847   2              {
-  848   3            return_state = 1;
-  849   3                  // 如果程序在输出了断言信息 并且提示出错位置在这里
-  850   3                  // 那么就是 dl1a 自检出错并超时退出了
-  851   3                  // 检查一下接线有没有问题 如果没问题可能就是坏了
-  852   3      
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 15  
+  831   2              dl1a_write_register(0x00, 0x01);
+  832   2              dl1a_write_register(0xFF, 0x00);
+  833   2              dl1a_write_register(0x80, 0x00);
+  834   2      
+  835   2              // 禁用 SIGNAL_RATE_MSRC(bit1) 和 SIGNAL_RATE_PRE_RANGE(bit4) 限制检查
+  836   2              reg_data_buffer = dl1a_read_register(DL1A_MSRC_CONFIG);
+  837   2              dl1a_write_register(DL1A_MSRC_CONFIG, reg_data_buffer | 0x12);
+  838   2      
+  839   2              dl1a_set_signal_rate_limit(DL1A_DEFAULT_RATE_LIMIT);                  // 设置信号速率限制
+  840   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xFF);
+  841   2              // -------------------------------- DL1A 启动初始化 --------------------------------
+  842   2      
+  843   2              // -------------------------------- DL1A 配置初始化 --------------------------------
+  844   2              if (dl1a_get_spad_info(&data_buffer[0], &data_buffer[1]))
+  845   2              {
+  846   3                              return_state = 1;
+  847   3                  // 如果程序在输出了断言信息 并且提示出错位置在这里
+  848   3                  // 那么就是 dl1a 自检出错并超时退出了
+  849   3                  // 检查一下接线有没有问题 如果没问题可能就是坏了
+  850   3      
+  851   3                              printf("dl1a init error.\r\n");
+  852   3                              break;
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 15  
 
-  853   3            printf("dl1a init error.\r\n");
-  854   3            break;
-  855   3              }
-  856   2      
-  857   2              // 从 GLOBAL_CONFIG_SPAD_ENABLES_REF_[0-6] 获取 SPAD map (RefGoodSpadMap) 数据
-  858   2              dl1a_read_registers(DL1A_GLOBAL_CONFIG_SPAD_ENABLES_REF_0, ref_spad_map, 6);
-  859   2      
-  860   2              dl1a_write_register(0xFF, 0x01);
-  861   2              dl1a_write_register(DL1A_DYNAMIC_SPAD_REF_EN_START_OFFSET, 0x00);
-  862   2              dl1a_write_register(DL1A_DYNAMIC_SPAD_NUM_REQUESTED_REF_SPAD, 0x2C);
-  863   2              dl1a_write_register(0xFF, 0x00);
-  864   2              dl1a_write_register(DL1A_GLOBAL_CONFIG_REF_EN_START_SELECT, 0xB4);
-  865   2      
-  866   2              data_buffer[2] = data_buffer[1] ? 12 : 0; // 12 is the first aperture spad
-  867   2              for (i = 0; i < 48; i++)
-  868   2              {
-  869   3                  if (i < data_buffer[2] || data_buffer[3] == data_buffer[0])
-  870   3                  {
-  871   4                      // 此位低于应启用的第一个位
-  872   4                      // 或者 (eference_spad_count) 位已启用
-  873   4                      // 因此此位为零
-  874   4                      ref_spad_map[i / 8] &= ~(1 << (i % 8));
-  875   4                  }
-  876   3                  else if ((ref_spad_map[i / 8] >> (i % 8)) & 0x1)
-  877   3                  {
-  878   4                      data_buffer[3]++;
-  879   4                  }
-  880   3              }
-  881   2      
-  882   2              data_buffer[0] = DL1A_GLOBAL_CONFIG_SPAD_ENABLES_REF_0;
-  883   2              for(i = 1; i < 7; i++)
-  884   2              {
-  885   3                  data_buffer[1] = ref_spad_map[i-1];
-  886   3              }
-  887   2              dl1a_write_array(data_buffer, 7);
-  888   2      
-  889   2              // 默认转换设置 version 02/11/2015_v36
-  890   2              dl1a_write_register(0xFF, 0x01);
-  891   2              dl1a_write_register(0x00, 0x00);
-  892   2              dl1a_write_register(0xFF, 0x00);
-  893   2              dl1a_write_register(0x09, 0x00);
-  894   2              dl1a_write_register(0x10, 0x00);
-  895   2              dl1a_write_register(0x11, 0x00);
-  896   2              dl1a_write_register(0x24, 0x01);
-  897   2              dl1a_write_register(0x25, 0xFF);
-  898   2              dl1a_write_register(0x75, 0x00);
-  899   2              dl1a_write_register(0xFF, 0x01);
-  900   2              dl1a_write_register(0x4E, 0x2C);
-  901   2              dl1a_write_register(0x48, 0x00);
-  902   2              dl1a_write_register(0x30, 0x20);
-  903   2              dl1a_write_register(0xFF, 0x00);
-  904   2              dl1a_write_register(0x30, 0x09);
-  905   2              dl1a_write_register(0x54, 0x00);
-  906   2              dl1a_write_register(0x31, 0x04);
-  907   2              dl1a_write_register(0x32, 0x03);
-  908   2              dl1a_write_register(0x40, 0x83);
-  909   2              dl1a_write_register(0x46, 0x25);
-  910   2              dl1a_write_register(0x60, 0x00);
-  911   2              dl1a_write_register(0x27, 0x00);
-  912   2              dl1a_write_register(0x50, 0x06);
-  913   2              dl1a_write_register(0x51, 0x00);
-  914   2              dl1a_write_register(0x52, 0x96);
-  915   2              dl1a_write_register(0x56, 0x08);
-  916   2              dl1a_write_register(0x57, 0x30);
-  917   2              dl1a_write_register(0x61, 0x00);
-  918   2              dl1a_write_register(0x62, 0x00);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 16  
+  853   3              }
+  854   2      
+  855   2              // 从 GLOBAL_CONFIG_SPAD_ENABLES_REF_[0-6] 获取 SPAD map (RefGoodSpadMap) 数据
+  856   2              dl1a_read_registers(DL1A_GLOBAL_CONFIG_SPAD_ENABLES_REF_0, ref_spad_map, 6);
+  857   2      
+  858   2              dl1a_write_register(0xFF, 0x01);
+  859   2              dl1a_write_register(DL1A_DYNAMIC_SPAD_REF_EN_START_OFFSET, 0x00);
+  860   2              dl1a_write_register(DL1A_DYNAMIC_SPAD_NUM_REQUESTED_REF_SPAD, 0x2C);
+  861   2              dl1a_write_register(0xFF, 0x00);
+  862   2              dl1a_write_register(DL1A_GLOBAL_CONFIG_REF_EN_START_SELECT, 0xB4);
+  863   2      
+  864   2              data_buffer[2] = data_buffer[1] ? 12 : 0; // 12 is the first aperture spad
+  865   2              for (i = 0; i < 48; i++)
+  866   2              {
+  867   3                  if (i < data_buffer[2] || data_buffer[3] == data_buffer[0])
+  868   3                  {
+  869   4                      // 此位低于应启用的第一个位
+  870   4                      // 或者 (eference_spad_count) 位已启用
+  871   4                      // 因此此位为零
+  872   4                      ref_spad_map[i / 8] &= ~(1 << (i % 8));
+  873   4                  }
+  874   3                  else if ((ref_spad_map[i / 8] >> (i % 8)) & 0x1)
+  875   3                  {
+  876   4                      data_buffer[3]++;
+  877   4                  }
+  878   3              }
+  879   2      
+  880   2              data_buffer[0] = DL1A_GLOBAL_CONFIG_SPAD_ENABLES_REF_0;
+  881   2              for(i = 1; i < 7; i++)
+  882   2              {
+  883   3                  data_buffer[1] = ref_spad_map[i-1];
+  884   3              }
+  885   2              dl1a_write_array(data_buffer, 7);
+  886   2      
+  887   2              // 默认转换设置 version 02/11/2015_v36
+  888   2              dl1a_write_register(0xFF, 0x01);
+  889   2              dl1a_write_register(0x00, 0x00);
+  890   2              dl1a_write_register(0xFF, 0x00);
+  891   2              dl1a_write_register(0x09, 0x00);
+  892   2              dl1a_write_register(0x10, 0x00);
+  893   2              dl1a_write_register(0x11, 0x00);
+  894   2              dl1a_write_register(0x24, 0x01);
+  895   2              dl1a_write_register(0x25, 0xFF);
+  896   2              dl1a_write_register(0x75, 0x00);
+  897   2              dl1a_write_register(0xFF, 0x01);
+  898   2              dl1a_write_register(0x4E, 0x2C);
+  899   2              dl1a_write_register(0x48, 0x00);
+  900   2              dl1a_write_register(0x30, 0x20);
+  901   2              dl1a_write_register(0xFF, 0x00);
+  902   2              dl1a_write_register(0x30, 0x09);
+  903   2              dl1a_write_register(0x54, 0x00);
+  904   2              dl1a_write_register(0x31, 0x04);
+  905   2              dl1a_write_register(0x32, 0x03);
+  906   2              dl1a_write_register(0x40, 0x83);
+  907   2              dl1a_write_register(0x46, 0x25);
+  908   2              dl1a_write_register(0x60, 0x00);
+  909   2              dl1a_write_register(0x27, 0x00);
+  910   2              dl1a_write_register(0x50, 0x06);
+  911   2              dl1a_write_register(0x51, 0x00);
+  912   2              dl1a_write_register(0x52, 0x96);
+  913   2              dl1a_write_register(0x56, 0x08);
+  914   2              dl1a_write_register(0x57, 0x30);
+  915   2              dl1a_write_register(0x61, 0x00);
+  916   2              dl1a_write_register(0x62, 0x00);
+  917   2              dl1a_write_register(0x64, 0x00);
+  918   2              dl1a_write_register(0x65, 0x00);
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 16  
 
-  919   2              dl1a_write_register(0x64, 0x00);
-  920   2              dl1a_write_register(0x65, 0x00);
-  921   2              dl1a_write_register(0x66, 0xA0);
-  922   2              dl1a_write_register(0xFF, 0x01);
-  923   2              dl1a_write_register(0x22, 0x32);
-  924   2              dl1a_write_register(0x47, 0x14);
-  925   2              dl1a_write_register(0x49, 0xFF);
-  926   2              dl1a_write_register(0x4A, 0x00);
-  927   2              dl1a_write_register(0xFF, 0x00);
-  928   2              dl1a_write_register(0x7A, 0x0A);
-  929   2              dl1a_write_register(0x7B, 0x00);
-  930   2              dl1a_write_register(0x78, 0x21);
-  931   2              dl1a_write_register(0xFF, 0x01);
-  932   2              dl1a_write_register(0x23, 0x34);
-  933   2              dl1a_write_register(0x42, 0x00);
-  934   2              dl1a_write_register(0x44, 0xFF);
-  935   2              dl1a_write_register(0x45, 0x26);
-  936   2              dl1a_write_register(0x46, 0x05);
-  937   2              dl1a_write_register(0x40, 0x40);
-  938   2              dl1a_write_register(0x0E, 0x06);
-  939   2              dl1a_write_register(0x20, 0x1A);
-  940   2              dl1a_write_register(0x43, 0x40);
-  941   2              dl1a_write_register(0xFF, 0x00);
-  942   2              dl1a_write_register(0x34, 0x03);
-  943   2              dl1a_write_register(0x35, 0x44);
-  944   2              dl1a_write_register(0xFF, 0x01);
-  945   2              dl1a_write_register(0x31, 0x04);
-  946   2              dl1a_write_register(0x4B, 0x09);
-  947   2              dl1a_write_register(0x4C, 0x05);
-  948   2              dl1a_write_register(0x4D, 0x04);
-  949   2              dl1a_write_register(0xFF, 0x00);
-  950   2              dl1a_write_register(0x44, 0x00);
-  951   2              dl1a_write_register(0x45, 0x20);
-  952   2              dl1a_write_register(0x47, 0x08);
-  953   2              dl1a_write_register(0x48, 0x28);
-  954   2              dl1a_write_register(0x67, 0x00);
-  955   2              dl1a_write_register(0x70, 0x04);
-  956   2              dl1a_write_register(0x71, 0x01);
-  957   2              dl1a_write_register(0x72, 0xFE);
-  958   2              dl1a_write_register(0x76, 0x00);
-  959   2              dl1a_write_register(0x77, 0x00);
-  960   2              dl1a_write_register(0xFF, 0x01);
-  961   2              dl1a_write_register(0x0D, 0x01);
-  962   2              dl1a_write_register(0xFF, 0x00);
-  963   2              dl1a_write_register(0x80, 0x01);
-  964   2              dl1a_write_register(0x01, 0xF8);
-  965   2              dl1a_write_register(0xFF, 0x01);
-  966   2              dl1a_write_register(0x8E, 0x01);
-  967   2              dl1a_write_register(0x00, 0x01);
-  968   2              dl1a_write_register(0xFF, 0x00);
-  969   2              dl1a_write_register(0x80, 0x00);
-  970   2      
-  971   2              // 将中断配置设置为新样品就绪
-  972   2              dl1a_write_register(DL1A_SYSTEM_INTERRUPT_GPIO_CONFIG, 0x04);
-  973   2              reg_data_buffer = dl1a_read_register(DL1A_GPIO_HV_MUX_ACTIVE_HIGH);
-  974   2              dl1a_write_register(DL1A_GPIO_HV_MUX_ACTIVE_HIGH, reg_data_buffer & ~0x10);
-  975   2              dl1a_write_register(DL1A_SYSTEM_INTERRUPT_CLEAR, 0x01);
+  919   2              dl1a_write_register(0x66, 0xA0);
+  920   2              dl1a_write_register(0xFF, 0x01);
+  921   2              dl1a_write_register(0x22, 0x32);
+  922   2              dl1a_write_register(0x47, 0x14);
+  923   2              dl1a_write_register(0x49, 0xFF);
+  924   2              dl1a_write_register(0x4A, 0x00);
+  925   2              dl1a_write_register(0xFF, 0x00);
+  926   2              dl1a_write_register(0x7A, 0x0A);
+  927   2              dl1a_write_register(0x7B, 0x00);
+  928   2              dl1a_write_register(0x78, 0x21);
+  929   2              dl1a_write_register(0xFF, 0x01);
+  930   2              dl1a_write_register(0x23, 0x34);
+  931   2              dl1a_write_register(0x42, 0x00);
+  932   2              dl1a_write_register(0x44, 0xFF);
+  933   2              dl1a_write_register(0x45, 0x26);
+  934   2              dl1a_write_register(0x46, 0x05);
+  935   2              dl1a_write_register(0x40, 0x40);
+  936   2              dl1a_write_register(0x0E, 0x06);
+  937   2              dl1a_write_register(0x20, 0x1A);
+  938   2              dl1a_write_register(0x43, 0x40);
+  939   2              dl1a_write_register(0xFF, 0x00);
+  940   2              dl1a_write_register(0x34, 0x03);
+  941   2              dl1a_write_register(0x35, 0x44);
+  942   2              dl1a_write_register(0xFF, 0x01);
+  943   2              dl1a_write_register(0x31, 0x04);
+  944   2              dl1a_write_register(0x4B, 0x09);
+  945   2              dl1a_write_register(0x4C, 0x05);
+  946   2              dl1a_write_register(0x4D, 0x04);
+  947   2              dl1a_write_register(0xFF, 0x00);
+  948   2              dl1a_write_register(0x44, 0x00);
+  949   2              dl1a_write_register(0x45, 0x20);
+  950   2              dl1a_write_register(0x47, 0x08);
+  951   2              dl1a_write_register(0x48, 0x28);
+  952   2              dl1a_write_register(0x67, 0x00);
+  953   2              dl1a_write_register(0x70, 0x04);
+  954   2              dl1a_write_register(0x71, 0x01);
+  955   2              dl1a_write_register(0x72, 0xFE);
+  956   2              dl1a_write_register(0x76, 0x00);
+  957   2              dl1a_write_register(0x77, 0x00);
+  958   2              dl1a_write_register(0xFF, 0x01);
+  959   2              dl1a_write_register(0x0D, 0x01);
+  960   2              dl1a_write_register(0xFF, 0x00);
+  961   2              dl1a_write_register(0x80, 0x01);
+  962   2              dl1a_write_register(0x01, 0xF8);
+  963   2              dl1a_write_register(0xFF, 0x01);
+  964   2              dl1a_write_register(0x8E, 0x01);
+  965   2              dl1a_write_register(0x00, 0x01);
+  966   2              dl1a_write_register(0xFF, 0x00);
+  967   2              dl1a_write_register(0x80, 0x00);
+  968   2      
+  969   2              // 将中断配置设置为新样品就绪
+  970   2              dl1a_write_register(DL1A_SYSTEM_INTERRUPT_GPIO_CONFIG, 0x04);
+  971   2              reg_data_buffer = dl1a_read_register(DL1A_GPIO_HV_MUX_ACTIVE_HIGH);
+  972   2              dl1a_write_register(DL1A_GPIO_HV_MUX_ACTIVE_HIGH, reg_data_buffer & ~0x10);
+  973   2              dl1a_write_register(DL1A_SYSTEM_INTERRUPT_CLEAR, 0x01);
+  974   2      
+  975   2              measurement_timing_budget_us  = dl1a_get_measurement_timing_budget();
   976   2      
-  977   2              measurement_timing_budget_us  = dl1a_get_measurement_timing_budget();
-  978   2      
-  979   2              // 默认情况下禁用 MSRC 和 TCC
-  980   2              // MSRC = Minimum Signal Rate Check
-  981   2              // TCC = Target CentreCheck
-  982   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xE8);
-  983   2              dl1a_set_measurement_timing_budget(measurement_timing_budget_us);    // 重新计算时序预算
-  984   2              // -------------------------------- DL1A 配置初始化 --------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      09/06/23  13:14:11  PAGE 17  
+  977   2              // 默认情况下禁用 MSRC 和 TCC
+  978   2              // MSRC = Minimum Signal Rate Check
+  979   2              // TCC = Target CentreCheck
+  980   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xE8);
+  981   2              dl1a_set_measurement_timing_budget(measurement_timing_budget_us);    // 重新计算时序预算
+  982   2              // -------------------------------- DL1A 配置初始化 --------------------------------
+  983   2      
+  984   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0x01);
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      25/06/23  16:28:08  PAGE 17  
 
-  985   2      
-  986   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0x01);
-  987   2              if (dl1a_perform_single_ref_calibration(0x40))
-  988   2              {
-  989   3                  return_state = 1;
-  990   3                  break;
-  991   3              }
-  992   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0x02);
-  993   2              if (dl1a_perform_single_ref_calibration(0x00))
-  994   2              {
-  995   3                  return_state = 1;
-  996   3                  break;
-  997   3              }
-  998   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xE8);           // 恢复以前的序列配置
+  985   2              if (dl1a_perform_single_ref_calibration(0x40))
+  986   2              {
+  987   3                  return_state = 1;
+  988   3                  break;
+  989   3              }
+  990   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0x02);
+  991   2              if (dl1a_perform_single_ref_calibration(0x00))
+  992   2              {
+  993   3                  return_state = 1;
+  994   3                  break;
+  995   3              }
+  996   2              dl1a_write_register(DL1A_SYSTEM_SEQUENCE_CONFIG, 0xE8);           // 恢复以前的序列配置
+  997   2      
+  998   2              delay_ms(100);
   999   2      
- 1000   2              delay_ms(100);
- 1001   2      
- 1002   2              dl1a_write_register(0x80, 0x01);
- 1003   2              dl1a_write_register(0xFF, 0x01);
- 1004   2              dl1a_write_register(0x00, 0x00);
- 1005   2              dl1a_write_register(0x91, stop_variable);
- 1006   2              dl1a_write_register(0x00, 0x01);
- 1007   2              dl1a_write_register(0xFF, 0x00);
- 1008   2              dl1a_write_register(0x80, 0x00);
- 1009   2      
- 1010   2              dl1a_write_register(DL1A_SYSRANGE_START, 0x02);
- 1011   2          }while(0);
- 1012   1      
- 1013   1          return return_state;
- 1014   1      }
- 1015          
+ 1000   2              dl1a_write_register(0x80, 0x01);
+ 1001   2              dl1a_write_register(0xFF, 0x01);
+ 1002   2              dl1a_write_register(0x00, 0x00);
+ 1003   2              dl1a_write_register(0x91, stop_variable);
+ 1004   2              dl1a_write_register(0x00, 0x01);
+ 1005   2              dl1a_write_register(0xFF, 0x00);
+ 1006   2              dl1a_write_register(0x80, 0x00);
+ 1007   2      
+ 1008   2              dl1a_write_register(DL1A_SYSRANGE_START, 0x02);
+ 1009   2          }while(0);
+ 1010   1      
+ 1011   1          return return_state;
+ 1012   1      }
+ 1013          
 
 
 Module Information          Static   Overlayable

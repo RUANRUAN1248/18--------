@@ -1,0 +1,75 @@
+C251 COMPILER V5.60.0,  allinit                                                            25/06/23  18:19:02  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE allinit
+OBJECT MODULE PLACED IN .\Out_File\allinit.obj
+COMPILER INVOKED BY: D:\keil\keil251\C251\BIN\C251.EXE ..\USER\src\allinit.c XSMALL WARNINGLEVEL(3) BROWSE INCDIR(..\..\
+                    -Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\s
+                    -rc;..\..\..\DIANCI) DEBUG PRINT(.\Out_File\allinit.lst) OBJECT(.\Out_File\allinit.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          void all_init()
+    4          {
+    5   1              uart_init();
+*** WARNING C96 IN LINE 5 OF ..\USER\src\allinit.c: 'uart_init': too few actual parameters
+    6   1              // 电机初始化
+    7   1              pwm_init(PWMA_CH1P_P60, 17000, 0);
+    8   1              pwm_init(PWMA_CH2P_P62, 17000, 0);
+    9   1              pwm_init(PWMA_CH3P_P64, 17000, 0);
+   10   1              pwm_init(PWMA_CH4P_P66, 17000, 0);
+   11   1      
+   12   1              // 舵机初始化
+   13   1              pwm_init(S3010_CH, 50, 700);
+   14   1      
+   15   1              // ADC 通道初始化
+   16   1              Use_adc_Init();
+   17   1      
+   18   1              // 陀螺仪初始化
+   19   1              icm20602_init();
+   20   1      
+   21   1              // oled初始化
+   22   1              OLED_Init();
+   23   1              OLED_Init(); // 初始化OLED
+   24   1              OLED_Clear();
+   25   1              OLED_DisPlay_On();
+   26   1              // 蜂鸣器
+   27   1              BEEP = 0;
+   28   1              // 编码器
+   29   1              ctimer_count_init(SPEEDL_PLUSE);
+   30   1              ctimer_count_init(SPEEDR_PLUSE);
+   31   1              // 中断定时器
+   32   1              pit_timer_ms(TIM_1, 5);
+   33   1              //TOF初始化
+   34   1              dl1a_init();    
+   35   1      
+   36   1              DMA_config();
+   37   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       139     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+C251 COMPILER V5.60.0,  allinit                                                            25/06/23  18:19:02  PAGE 2   
+
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

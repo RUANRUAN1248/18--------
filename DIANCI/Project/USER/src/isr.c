@@ -168,10 +168,12 @@ void TM3_Isr() interrupt 19
 	
 }
 
+extern void pit_handler();
 void TM4_Isr() interrupt 20
 {
 	TIM4_CLEAR_FLAG; //清除中断标志
 //	ccd_collect();	 //CCD采集数据
+	pit_handler();
 
 }
 //========================================================================
@@ -181,15 +183,15 @@ void TM4_Isr() interrupt 20
 // 返回: none.
 // 版本: V1.0, 2022-03-23
 //========================================================================
-void DMA_ADC_ISR_Handler (void) interrupt 48
-{
-	// TODO: 在此处添加用户代码
-	if(DMA_ADC_STA & 0x01)	//AD转换完成
-	{
-		DMA_ADC_STA &= ~0x01;	//清标志位
-		DmaADCFlag = 1;
-	}
-}
+//void DMA_ADC_ISR_Handler (void) interrupt 48
+//{
+//	// TODO: 在此处添加用户代码
+//	if(DMA_ADC_STA & 0x01)	//AD转换完成
+//	{
+//		DMA_ADC_STA &= ~0x01;	//清标志位
+//		DmaADCFlag = 1;
+//	}
+//}
 
 //========================================================================
 // 函数: DMA_ISR_Handler

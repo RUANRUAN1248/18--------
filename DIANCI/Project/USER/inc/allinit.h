@@ -11,9 +11,10 @@
 //右轮
 #define DIR_1 PWMA_CH3P_P64
 #define PWM_1 PWMA_CH4P_P66
+
 //定义脉冲管脚	
-#define SPEEDL_PLUSE   CTIM0_P34//右轮
-#define SPEEDR_PLUSE   CTIM3_P04//左轮
+//#define SPEEDL_PLUSE   CTIM0_P34//右轮
+//#define SPEEDR_PLUSE   CTIM3_P04//左轮
 
 #define SPEEDL_DIR     P50//右轮
 #define SPEEDR_DIR     P51//左轮
